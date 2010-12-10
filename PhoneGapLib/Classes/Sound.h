@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -10,7 +11,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "PhoneGapCommand.h"
+#import "PGCommand.h"
 
 @interface AudioFile : NSObject
 {
@@ -38,7 +39,7 @@
 
 @end
 
-@interface Sound : PhoneGapCommand 
+@interface Sound : PGCommand 
 <AVAudioPlayerDelegate
 #ifdef __IPHONE_3_0
 , AVAudioRecorderDelegate

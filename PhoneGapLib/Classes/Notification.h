@@ -4,15 +4,16 @@
 //
 //  Created by Michael Nachbaur on 16/04/09.
 //  Copyright 2009 Decaf Ninja Software. All rights reserved.
+//  Copyright (c) 2010-11, HeavyLifters Network Ltd.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AudioToolbox/AudioServices.h>
-#import "PhoneGapCommand.h"
+#import "PGCommand.h"
 #import "LoadingView.h"
 
-@interface Notification : PhoneGapCommand <UIAlertViewDelegate>{
+@interface Notification : PGCommand <UIAlertViewDelegate>{
 	LoadingView* loadingView;
 }
 

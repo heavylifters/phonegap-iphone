@@ -4,12 +4,12 @@
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
 #import <Contact.h>
 #import <Categories.h>
-#import <PhoneGapDelegate.h>
 
 #define DATE_OR_NULL(dateObj) ( (aDate != nil) ? (id)([aDate descriptionWithLocale: [NSLocale currentLocale]]) : (id)([NSNull null]) )
 #define IS_VALID_VALUE(value) ((value != nil) && (![value isKindOfClass: [NSNull class]]))
@@ -1231,18 +1231,14 @@ static NSDictionary*	com_phonegap_contacts_defaultFields = nil;
 		NSData* data = (NSData*)photoData;
 		// write to temp directory and store URI in photos array
 		// get the temp directory path
-		NSString* docsPath = [[PhoneGapDelegate applicationDocumentsDirectory] stringByAppendingPathComponent: [PhoneGapDelegate tmpFolderName]];
 		NSError* err = nil;
 		NSFileManager* fileMgr = [[NSFileManager alloc] init]; //recommended by apple (vs [NSFileManager defaultManager]) to be theadsafe
 		
-		if ( [fileMgr fileExistsAtPath:docsPath] == NO ){ // check in case tmp dir got deleted
-			[fileMgr createDirectoryAtPath:docsPath withIntermediateDirectories: NO attributes: nil error: nil];
-		}
 		// generate unique file name
 		NSString* filePath;
 		int i=1;
 		do {
-			filePath = [NSString stringWithFormat:@"%@/photo_%03d.jpg", docsPath, i++];
+			filePath = [NSString stringWithFormat:@"%@/photo_%03d.jpg", NSTemporaryDirectory(), i++];
 		} while([fileMgr fileExistsAtPath: filePath]);
 		// save file
 		if ([data writeToFile: filePath options: NSAtomicWrite error: &err]){

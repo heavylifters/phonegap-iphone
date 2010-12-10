@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -73,16 +74,9 @@
 	{
 		NSString * jsCallBack = nil;
 		jsCallBack = [[NSString alloc] initWithFormat:@"navigator.accelerometer._onAccelUpdate(%f,%f,%f);", acceleration.x, acceleration.y, acceleration.z];
-		[webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+		[self stringByEvaluatingJavaScriptFromString: jsCallBack];
 		[jsCallBack release];
 	}
-}
-
-- (void)dealloc
-{
-    if (self.settings)
-        [self.settings release];
-    [super dealloc];
 }
 
 // TODO: Consider using filtering to isolate instantaneous data vs. gravity data -jm

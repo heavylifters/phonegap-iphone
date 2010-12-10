@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -15,9 +16,9 @@
 
 @synthesize theMovie,stopReceived,repeat;
 
-- (PhoneGapCommand*) initWithWebView:(UIWebView*)theWebView
+- (id) initWithController: (PGViewController *)vc
 {
-    self = (Movie*)[super initWithWebView:(UIWebView*)theWebView];
+    self = [super initWithController: vc];
     if (self) {
         stopReceived = false;
         repeat = false;

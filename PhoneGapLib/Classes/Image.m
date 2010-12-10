@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -64,8 +65,8 @@
 	
 	[[thePicker parentViewController] dismissModalViewControllerAnimated:YES];
 	
-	webView.hidden = NO;
-	[window bringSubviewToFront:webView];
+	// webView.hidden = NO;
+	// [window bringSubviewToFront:webView];
 	
 }
 
@@ -80,13 +81,13 @@
 	NSString * jsCallBack = nil;
 	
 	jsCallBack = [[NSString alloc] initWithFormat:@"gotPhoto('CANCEL');", lastUploadedPhoto];
-	[webView stringByEvaluatingJavaScriptFromString:jsCallBack];  
+	[self stringByEvaluatingJavaScriptFromString: jsCallBack];  
 	[jsCallBack release];
 	
 	// Hide the imagePicker and bring the web page back into focus
 	NSLog(@"Photo Cancel Request");
-	webView.hidden = NO;
-	[window bringSubviewToFront:webView];
+	// webView.hidden = NO;
+	// [window bringSubviewToFront:webView];
 }
 
 
@@ -113,7 +114,7 @@
 	
 	jsCallBack = [[NSString alloc] initWithFormat:@"gotPhoto('%@');", lastUploadedPhoto];
 	
-	[webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+	[self stringByEvaluatingJavaScriptFromString: jsCallBack];
 	
 	NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
 	NSLog(@"%@", jsCallBack);

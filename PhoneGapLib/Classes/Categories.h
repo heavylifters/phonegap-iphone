@@ -3,12 +3,13 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
 @interface NSDictionary(com_phonegap_NSDictionary_Extension)
 
-- (bool) existsValue:(NSString*)expectedValue forKey:(NSString*)key;
+- (BOOL) existsValue:(NSString*)expectedValue forKey:(NSString*)key;
 - (NSUInteger) integerValueForKey:(NSString*)key defaultValue:(NSUInteger)defaultValue withRange:(NSRange)range;
 - (BOOL) typeValueForKey:(NSString *)key isArray:(BOOL*)bArray isNull:(BOOL*)bNull isNumber:(BOOL*) bNumber isString:(BOOL*)bString;
 - (BOOL) valueForKeyIsArray:(NSString *)key;

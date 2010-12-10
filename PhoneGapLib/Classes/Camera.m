@@ -4,13 +4,15 @@
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 #import "Camera.h"
 #import "NSData+Base64.h"
 #import "Categories.h"
-#import "PhonegapDelegate.h"
+#import "PGViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "PluginResult.h"
 
 @implementation Camera
 
@@ -46,7 +48,7 @@
 	pickerController.quality = [options integerValueForKey:@"quality" defaultValue:100 withRange:NSMakeRange(0, 100)];
 	pickerController.returnType = (DestinationType)[options integerValueForKey:@"destinationType" defaultValue:0 withRange:NSMakeRange(0, 2)];
 	
-	[[super appViewController] presentModalViewController:pickerController animated:YES];
+	[[self controller] presentModalViewController: pickerController animated: YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info
@@ -78,21 +80,17 @@
 			
 			// write to temp directory and reutrn URI
 			// get the temp directory path
-			NSString* docsPath = [[PhoneGapDelegate applicationDocumentsDirectory] stringByAppendingPathComponent: [PhoneGapDelegate tmpFolderName]];
-			NSError* err = nil;
 			NSFileManager* fileMgr = [[NSFileManager alloc] init]; //recommended by apple (vs [NSFileManager defaultManager]) to be theadsafe
 			
 			
-			if ( [fileMgr fileExistsAtPath:docsPath] == NO ){ // check in case tmp dir got deleted
-				[fileMgr createDirectoryAtPath:docsPath withIntermediateDirectories: NO attributes: nil error: nil];
-			}
 			// generate unique file name
 			NSString* filePath;
 			int i=1;
 			do {
-				filePath = [NSString stringWithFormat:@"%@/photo_%03d.jpg", docsPath, i++];
+				filePath = [NSString stringWithFormat:@"%@/photo_%03d.jpg", NSTemporaryDirectory(), i++];
 			} while([fileMgr fileExistsAtPath: filePath]);
 			// save file
+			NSError* err = nil;
 			if (![data writeToFile: filePath options: NSAtomicWrite error: &err]){
 				result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsString: [err localizedDescription]];
 				jsString = [result toErrorCallbackString:callbackId];
@@ -109,7 +107,7 @@
 			jsString = [result toSuccessCallbackString:callbackId];
 			//jsString = [NSString stringWithFormat:@"%@(\"%@\");", cameraPicker.successCallback, [data base64EncodedString]];
 		}
-		[webView stringByEvaluatingJavaScriptFromString:jsString];
+		[self stringByEvaluatingJavaScriptFromString:jsString];
 		
 	}
 }
@@ -129,7 +127,7 @@
 	[picker dismissModalViewControllerAnimated:YES];
 	// return media Capture error value for now (will update when implement MediaCapture api)
 	PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsString: @"3"]; // error callback expects string ATM
-	[webView stringByEvaluatingJavaScriptFromString:[result toErrorCallbackString: callbackId]];
+	[self stringByEvaluatingJavaScriptFromString:[result toErrorCallbackString: callbackId]];
 	
 }
 
@@ -191,11 +189,8 @@
 
 - (void) dealloc
 {
-	if (callbackId) {
-		[callbackId release];
-	}
-	
-	
+	[callbackId release];
+	[postUrl release]; postUrl = nil;
 	[super dealloc];
 }
 

@@ -12,6 +12,7 @@
 //  appreciated but not required.
 //
 //  Modifications by Shazron Abdullah, Nitobi Software Inc.
+//  Modifications by Jim Roepcke, HeavyLifters Network Ltd.
 //
 
 #import "LoadingView.h"
@@ -264,7 +265,7 @@ CGPathRef NewPathWithRect(CGRect rect)
 	if (!self.bounceAnimation)
 	{
 		UIView *aSuperview = [self superview];
-		[super removeFromSuperview];
+		[self removeFromSuperview];
 		
 		// Set up the animation
 		CATransition *animation = [CATransition animation];
@@ -298,7 +299,7 @@ CGPathRef NewPathWithRect(CGRect rect)
 		[viewLayer addAnimation:animation forKey:@"transform.scale"];
 	}
 	
-	[super performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.2];
+	[self performSelector: @selector(removeFromSuperview) withObject: nil afterDelay: 0.2];
 }
 
 - (void)drawRect:(CGRect)rect

@@ -4,15 +4,16 @@
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
 #import "Contacts.h"
 #import <UIKit/UIKit.h>
-#import "PhoneGapDelegate.h"
 #import "Categories.h"
+#import "JSON.h"
 #import "Notification.h"
-
+#import "PluginResult.h"
 
 @implementation ContactsPicker
 
@@ -47,9 +48,9 @@
 	[contacts addressBookDirty];
 }*/
 
--(PhoneGapCommand*) initWithWebView:(UIWebView*)theWebView
+- (id) initWithController: (PGViewController *)vc
 {
-    self = (Contacts*)[super initWithWebView:(UIWebView*)theWebView];
+    self = [super initWithController: vc];
     /*if (self) {
 		addressBook = ABAddressBookCreate();
 		ABAddressBookRegisterExternalChangeCallback(addressBook, addressBookChanged, self);
@@ -69,7 +70,7 @@
 	npController.callbackId = callbackId;
 
 	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:npController] autorelease];
-	[[super appViewController] presentModalViewController:navController animated: YES];
+	[[self controller] presentModalViewController:navController animated: YES];
  
 
 			
@@ -90,7 +91,7 @@
 	[newPersonViewController dismissModalViewControllerAnimated:YES];
 	PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsInt:  recordId];
 	//jsString = [NSString stringWithFormat: @"%@(%d);", newCP.jsCallback, recordId];
-	[self writeJavascript: [result toSuccessCallbackString:callbackId]];
+	[self stringByEvaluatingJavaScriptFromString: [result toSuccessCallbackString:callbackId]];
 	
 }
 
@@ -118,7 +119,7 @@
 									   action: @selector(dismissModalView:)];
 		
 		UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:personController] autorelease];
-		[[super appViewController] presentModalViewController:navController animated: YES];
+	[[self controller] presentModalViewController:navController animated: YES];
 		
 		// this needs to be AFTER presentModal, if not it does not show up (iOS 4 regression: workaround)
 		personController.navigationItem.rightBarButtonItem = doneButton;
@@ -162,7 +163,7 @@
 	{
 		// no record, return error
 		PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsInt:  NOT_FOUND_ERROR];
-		[self writeJavascript:[result toErrorCallbackString:callbackId]];
+		[self stringByEvaluatingJavaScriptFromString:[result toErrorCallbackString:callbackId]];
 		
 	}
 	CFRelease(addrBook);
@@ -170,8 +171,9 @@
 
 - (void) dismissModalView:(id)sender 
 {
-	UIViewController* controller = ([super appViewController]);
-	[controller.modalViewController dismissModalViewControllerAnimated:YES]; 
+	// TODO: check if this call to modalViewController is necessary
+	// perhaps calling dismiss on [self controller] is good enough?
+	[[[self controller] modalViewController] dismissModalViewControllerAnimated: YES];
 }
 								   
 - (BOOL) personViewController:(ABPersonViewController *)personViewController shouldPerformDefaultActionForPerson:(ABRecordRef)person 
@@ -190,7 +192,7 @@
 	pickerController.selectedId = kABRecordInvalidID;
 	pickerController.allowsEditing = (BOOL)[options existsValue:@"true" forKey:@"allowsEditing"];
 	
-	[[super appViewController] presentModalViewController:pickerController animated: YES];
+	[[self controller] presentModalViewController: pickerController animated: YES];
 }
 
 - (BOOL) peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker 
@@ -214,7 +216,7 @@
 	} else {
 		// return the contact Id
 		PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsInt: contactId];
-		[self writeJavascript:[result toSuccessCallbackString: picker.callbackId]];
+		[self stringByEvaluatingJavaScriptFromString:[result toSuccessCallbackString: picker.callbackId]];
 		
 
 		[picker dismissModalViewControllerAnimated:YES];
@@ -233,7 +235,7 @@
 	// return contactId or invalid if none picked
 	ContactsPicker* picker = (ContactsPicker*)peoplePicker;
 	PluginResult* result = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsInt: picker.selectedId];
-	[self writeJavascript:[result toSuccessCallbackString:picker.callbackId]];
+	[self stringByEvaluatingJavaScriptFromString:[result toSuccessCallbackString:picker.callbackId]];
 	
 	[peoplePicker dismissModalViewControllerAnimated:YES]; 
 }
@@ -377,7 +379,7 @@
 	}
 	
 	if(jsString){
-		[self writeJavascript:jsString];
+		[self stringByEvaluatingJavaScriptFromString:jsString];
 		//[webView stringByEvaluatingJavaScriptFromString:jsString];
 	}
 	return;
@@ -446,7 +448,7 @@
 	}
 	
 	if(jsString){
-		[self writeJavascript: jsString];
+		[self stringByEvaluatingJavaScriptFromString: jsString];
 		//[webView stringByEvaluatingJavaScriptFromString:jsString];
 	}
 	
@@ -510,7 +512,7 @@
 		 //jsString = [NSString stringWithFormat:@"%@(%d);", @"navigator.service.contacts._errCallback", errCode];
 	}
 	if (jsString){
-		[self writeJavascript:jsString];
+		[self stringByEvaluatingJavaScriptFromString:jsString];
 		//[webView stringByEvaluatingJavaScriptFromString:jsString];
 	}	
 		

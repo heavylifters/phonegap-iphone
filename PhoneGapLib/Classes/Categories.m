@@ -3,28 +3,22 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
 #import "Categories.h"
-#import <math.h>
 
 @implementation NSDictionary(com_phonegap_NSDictionary_Extension)
 
-- (bool) existsValue:(NSString*)expectedValue forKey:(NSString*)key
+- (BOOL) existsValue:(NSString*)expectedValue forKey:(NSString*)key
 {
-	id val = [self valueForKey:key];
-	bool exists = false;
-	if (val != nil) {
-		exists = [(NSString*)val compare:expectedValue options:NSCaseInsensitiveSearch] == 0;
-	}
-	
-	return exists;
+	return NSOrderedSame == [expectedValue compare: [[self objectForKey: key] description]
+										   options: NSCaseInsensitiveSearch];
 }
 
 - (NSUInteger) integerValueForKey:(NSString*)key  defaultValue:(NSUInteger)defaultValue withRange:(NSRange)range
 {
-
 	NSUInteger value = defaultValue;
 	
 	NSNumber* val = [self valueForKey:key];  //value is an NSNumber

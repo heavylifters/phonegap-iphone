@@ -4,15 +4,16 @@
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 #import <Foundation/Foundation.h>
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "PhoneGapCommand.h"
+#import "PGCommand.h"
 #import "Contact.h"
 
-@interface Contacts : PhoneGapCommand <ABNewPersonViewControllerDelegate, 
+@interface Contacts : PGCommand <ABNewPersonViewControllerDelegate, 
 									   ABPersonViewControllerDelegate,
 									   ABPeoplePickerNavigationControllerDelegate
 									  > 

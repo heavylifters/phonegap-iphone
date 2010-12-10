@@ -4,12 +4,13 @@
 //
 //  Created by Michael Nachbaur on 16/04/09.
 //  Copyright 2009 Decaf Ninja Software. All rights reserved.
+//  Copyright (c) 2010-11, HeavyLifters Network Ltd.
 //
 
 #import "Notification.h"
 #import "Categories.h"
 #import "UIColor-Expanded.h"
-
+#import "PluginResult.h"
 
 @implementation Notification
 
@@ -80,7 +81,7 @@
 	
 	PGAlertView* pgAlertView = (PGAlertView*) alertView;
 	PluginResult* result = [PluginResult resultWithStatus: PGCommandStatus_OK messageAsInt: ++buttonIndex]; 
-	[self writeJavascript:[result toSuccessCallbackString: [pgAlertView callbackId]]];
+	[self stringByEvaluatingJavaScriptFromString:[result toSuccessCallbackString: [pgAlertView callbackId]]];
 	//NSString * jsCallBack = [NSString stringWithFormat:@"navigator.notification._alertCallback(%d,\"%@\");", ++buttonIndex, buttonLabel];    
     //[webView stringByEvaluatingJavaScriptFromString:jsCallBack];
 }
@@ -88,7 +89,6 @@
 
 - (void)activityStart:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
-    //[(UIActivityIndicatorView*)[self.webView.window viewWithTag:2] startAnimating];
     NSLog(@"Activity starting");
     UIApplication* app = [UIApplication sharedApplication];
     app.networkActivityIndicatorVisible = YES;
@@ -96,8 +96,6 @@
 
 - (void)activityStop:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
-    //[(UIActivityIndicatorView*)[self.webView.window viewWithTag:2] stopAnimating];
-
     NSLog(@"Activitiy stopping ");
     UIApplication* app = [UIApplication sharedApplication];
     app.networkActivityIndicatorVisible = NO;
@@ -168,10 +166,14 @@
 		}
 	} 
 	
-	self.loadingView = [LoadingView loadingViewInView:[super appViewController].view strokeOpacity:strokeOpacity 
-									backgroundOpacity:backgroundOpacity 
-										  strokeColor:strokeColor fullScreen:fullScreen labelText:labelText 
-									  bounceAnimation:bounceAnimation boxLength:boxLength];
+	self.loadingView = [LoadingView loadingViewInView: [[self controller] view]
+										strokeOpacity: strokeOpacity 
+									backgroundOpacity: backgroundOpacity 
+										  strokeColor: strokeColor
+										   fullScreen: fullScreen
+											labelText: labelText 
+									  bounceAnimation: bounceAnimation
+											boxLength: boxLength];
 	
 	NSRange minMaxDuration = NSMakeRange(2, 3600);// 1 hour max? :)
 	NSString* durationKey = @"duration";

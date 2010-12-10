@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -12,12 +13,12 @@
 
 @synthesize locationManager;
 
--(PhoneGapCommand*) initWithWebView:(UIWebView*)theWebView
+- (id) initWithController: (PGViewController *)vc
 {
-    self = (Location*)[super initWithWebView:(UIWebView*)theWebView];
+    self = [super initWithController: vc];
     if (self) {
-        self.locationManager = [[[CLLocationManager alloc] init] autorelease];
-        self.locationManager.delegate = self; // Tells the location manager to send updates to this object
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self; // Tells the location manager to send updates to this object
     }
     return self;
 }
@@ -67,7 +68,7 @@
 									 1, // 1 is PERMISSION_DENIED
 									 @"Location Services Not Enabled"];
 			NSLog(@"%@", jsErrorCallBack);
-			[webView stringByEvaluatingJavaScriptFromString:jsErrorCallBack];
+			[self stringByEvaluatingJavaScriptFromString: jsErrorCallBack];
 			return;
 		}
 	}
@@ -136,7 +137,7 @@
     NSString * jsCallBack = [NSString stringWithFormat:@"navigator.geolocation.setLocation({ timestamp: %d, %@ });", epoch, coords];
     NSLog(@"%@", jsCallBack);
     
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 - (void)startHeading:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
@@ -182,7 +183,7 @@
 							 epoch, heading.magneticHeading, heading.trueHeading, heading.headingAccuracy];
    // NSLog(@"%@", jsCallBack);
     
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 #endif
@@ -210,14 +211,15 @@
 	}
     NSLog(@"%@", jsCallBack);
 	
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 	[self.locationManager stopUpdatingLocation];
     __locationStarted = NO;
 	
 }
 
-- (void)dealloc {
-    [self.locationManager release];
+- (void) dealloc
+{
+    [locationManager release]; locationManager = nil;
 	[super dealloc];
 }
 

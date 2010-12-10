@@ -4,10 +4,11 @@
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
  * Copyright (c) 2010, IBM Corporation
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 #import <Foundation/Foundation.h>
-#import "PhoneGapCommand.h"
+#import "PGCommand.h"
 
 enum DestinationType {
 	DestinationTypeDataUrl = 0,
@@ -30,11 +31,9 @@ typedef NSUInteger DestinationType;
 @property (copy)   NSString* postUrl;
 @property (nonatomic) enum DestinationType returnType;
 
-- (void) dealloc;
-
 @end
 
-@interface Camera : PhoneGapCommand<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface Camera : PGCommand <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
 	CameraPicker* pickerController;
 }
@@ -56,7 +55,6 @@ typedef NSUInteger DestinationType;
 - (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController*)picker;
 
-- (void) dealloc;
 
 @end
 

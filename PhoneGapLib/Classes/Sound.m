@@ -3,16 +3,21 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
 #import "Sound.h"
-#import "PhonegapDelegate.h"
 
 #define DOCUMENTS_SCHEME_PREFIX		@"documents://"
 #define HTTP_SCHEME_PREFIX			@"http://"
 
 @implementation Sound
+
+- (NSString *) applicationDocumentsDirectory
+{
+	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
 
 // Maps a url to the original resource path
 - (NSString*) resourceForUrl:(NSURL*)url
@@ -21,9 +26,10 @@
 	NSString* urlString = [url description];
 	NSString* retVal = @"";
 	
-	NSString* wwwPath = [mainBundle pathForResource:[PhoneGapDelegate wwwFolderName] ofType:@"" inDirectory:@""];
+	NSString* wwwPath = [mainBundle pathForResource: [self wwwFolderName] ofType: @"" inDirectory: @""];
+	// TODO: is this correct, using description for the url string?
 	NSString* wwwUrl = [[NSURL fileURLWithPath:wwwPath] description];
-	NSString* documentsUrl = [[NSURL fileURLWithPath:[PhoneGapDelegate applicationDocumentsDirectory]] description];
+	NSString* documentsUrl = [[NSURL fileURLWithPath: [self applicationDocumentsDirectory]] description];
 	
 	if ([urlString hasPrefix:wwwUrl]) {
 		retVal = [urlString substringFromIndex:[wwwUrl length]];
@@ -45,7 +51,7 @@
 	NSURL* resourceURL = nil;
 	
 	// attempt to find file path
-    NSString* filePath = [PhoneGapDelegate pathForResource:resourcePath];
+    NSString* filePath = [self pathForResource: resourcePath];
 	
 	if (filePath == nil) {
 		// if it is a http url, use it
@@ -56,7 +62,7 @@
 			NSLog(@"Will use resource '%@' from the documents folder.", resourcePath);
 			resourceURL = [NSURL URLWithString:resourcePath];
 			
-			NSString* recordingPath = [NSString stringWithFormat:@"%@/%@", [PhoneGapDelegate applicationDocumentsDirectory], [resourceURL host]];
+			NSString* recordingPath = [NSString stringWithFormat:@"%@/%@", [self applicationDocumentsDirectory], [resourceURL host]];
 			resourceURL = [NSURL fileURLWithPath:recordingPath];
 		} else {
 			NSLog(@"Unknown resource '%@'", resourcePath);
@@ -75,7 +81,7 @@
 - (AudioFile*) audioFileForResource:(NSString*) resourcePath
 {
 	NSURL* resourceURL = [self urlForResource:resourcePath];
-	if([resourcePath isEqualToString:@""]){
+	if ([@"" isEqualToString: resourcePath]) {
 		NSLog(@"Cannot play empty URI");
 		return nil;
 	}
@@ -131,7 +137,7 @@
 		if (audioFile.downloadCompleteCallback) {
 			NSLog(@"dl complete cb: %@", audioFile.downloadCompleteCallback);
 			NSString* jsString = [NSString stringWithFormat:@"(%@)();", audioFile.downloadCompleteCallback];
-			[super writeJavascript:jsString];
+			[self stringByEvaluatingJavaScriptFromString:jsString];
 		}
 
 		audioFile.player.delegate = self;
@@ -253,12 +259,12 @@
 		if (flag){
 			if (audioFile.successCallback) {
 				NSString* jsString = [NSString stringWithFormat:@"(%@)(\"%@\");", audioFile.successCallback, resourcePath];
-				[super writeJavascript:jsString];
+				[self stringByEvaluatingJavaScriptFromString: jsString];
 			}
 		} else {
 			if (audioFile.errorCallback) {
 				NSString* jsString = [NSString stringWithFormat:@"(%@)(\"%@\");", audioFile.errorCallback, resourcePath];
-				[super writeJavascript:jsString];
+				[self stringByEvaluatingJavaScriptFromString: jsString];
 			}		
 		}
 	}
@@ -277,12 +283,12 @@
 		if (flag){
 			if (audioFile.successCallback) {
 				NSString* jsString = [NSString stringWithFormat:@"(%@)(\"%@\");", audioFile.successCallback, resourcePath];
-				[super writeJavascript:jsString];
+				[self stringByEvaluatingJavaScriptFromString: jsString];
 			}
 		} else {
 			if (audioFile.errorCallback) {
 				NSString* jsString = [NSString stringWithFormat:@"(%@)(\"%@\");", audioFile.errorCallback, resourcePath];
-				[super writeJavascript:jsString];
+				[self stringByEvaluatingJavaScriptFromString: jsString];
 			}		
 		}
 	} else {
@@ -293,11 +299,15 @@
 
 - (void) clearCaches
 {
-	[soundCache removeAllObjects];
-	[soundCache release];
-	soundCache = nil;
-	
+	[soundCache release]; soundCache = nil;
 	[super clearCaches];
+}
+
+- (void) dealloc
+{
+	[soundCache release]; soundCache = nil;
+	[audFile release]; audFile = nil;
+	[super dealloc];
 }
 
 @end
@@ -316,11 +326,10 @@
 
 - (void) dealloc
 {
-	self.player = nil;
-	self.successCallback = nil;
-	self.errorCallback = nil;
-	self.downloadCompleteCallback = nil;
-	
+	[player release]; player = nil;
+	[successCallback release]; successCallback = nil;
+	[errorCallback release] ; errorCallback = nil;
+	[downloadCompleteCallback release]; downloadCompleteCallback = nil;
 	[super dealloc];
 }
 

@@ -58,12 +58,12 @@
 		8887FD941090FBE7009987E8 /* OCABRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD551090FBE7009987E8 /* OCABRecord.m */; };
 		8887FD951090FBE7009987E8 /* OCCFObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD561090FBE7009987E8 /* OCCFObject.h */; };
 		8887FD961090FBE7009987E8 /* OCCFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD571090FBE7009987E8 /* OCCFObject.m */; };
-		8887FD971090FBE7009987E8 /* PhoneGapCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD581090FBE7009987E8 /* PhoneGapCommand.h */; };
-		8887FD981090FBE7009987E8 /* PhoneGapCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD591090FBE7009987E8 /* PhoneGapCommand.m */; };
-		8887FD991090FBE7009987E8 /* PhoneGapDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD5A1090FBE7009987E8 /* PhoneGapDelegate.h */; };
-		8887FD9A1090FBE7009987E8 /* PhoneGapDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD5B1090FBE7009987E8 /* PhoneGapDelegate.m */; };
-		8887FD9B1090FBE7009987E8 /* PhoneGapViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD5C1090FBE7009987E8 /* PhoneGapViewController.h */; };
-		8887FD9C1090FBE7009987E8 /* PhoneGapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD5D1090FBE7009987E8 /* PhoneGapViewController.m */; };
+		8887FD971090FBE7009987E8 /* PGCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD581090FBE7009987E8 /* PGCommand.h */; };
+		8887FD981090FBE7009987E8 /* PGCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD591090FBE7009987E8 /* PGCommand.m */; };
+		8887FD991090FBE7009987E8 /* PGAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD5A1090FBE7009987E8 /* PGAppDelegate.h */; };
+		8887FD9A1090FBE7009987E8 /* PGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD5B1090FBE7009987E8 /* PGAppDelegate.m */; };
+		8887FD9B1090FBE7009987E8 /* PGViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD5C1090FBE7009987E8 /* PGViewController.h */; };
+		8887FD9C1090FBE7009987E8 /* PGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD5D1090FBE7009987E8 /* PGViewController.m */; };
 		8887FD9D1090FBE7009987E8 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD5E1090FBE7009987E8 /* Reachability.h */; };
 		8887FD9E1090FBE7009987E8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8887FD5F1090FBE7009987E8 /* Reachability.m */; };
 		8887FD9F1090FBE7009987E8 /* Sound.h in Headers */ = {isa = PBXBuildFile; fileRef = 8887FD601090FBE7009987E8 /* Sound.h */; };
@@ -125,12 +125,12 @@
 		8887FD551090FBE7009987E8 /* OCABRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCABRecord.m; path = Classes/OCABRecord.m; sourceTree = "<group>"; };
 		8887FD561090FBE7009987E8 /* OCCFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCCFObject.h; path = Classes/OCCFObject.h; sourceTree = "<group>"; };
 		8887FD571090FBE7009987E8 /* OCCFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCCFObject.m; path = Classes/OCCFObject.m; sourceTree = "<group>"; };
-		8887FD581090FBE7009987E8 /* PhoneGapCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneGapCommand.h; path = Classes/PhoneGapCommand.h; sourceTree = "<group>"; };
-		8887FD591090FBE7009987E8 /* PhoneGapCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneGapCommand.m; path = Classes/PhoneGapCommand.m; sourceTree = "<group>"; };
-		8887FD5A1090FBE7009987E8 /* PhoneGapDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneGapDelegate.h; path = Classes/PhoneGapDelegate.h; sourceTree = "<group>"; };
-		8887FD5B1090FBE7009987E8 /* PhoneGapDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneGapDelegate.m; path = Classes/PhoneGapDelegate.m; sourceTree = "<group>"; };
-		8887FD5C1090FBE7009987E8 /* PhoneGapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneGapViewController.h; path = Classes/PhoneGapViewController.h; sourceTree = "<group>"; };
-		8887FD5D1090FBE7009987E8 /* PhoneGapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneGapViewController.m; path = Classes/PhoneGapViewController.m; sourceTree = "<group>"; };
+		8887FD581090FBE7009987E8 /* PGCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGCommand.h; path = Classes/PGCommand.h; sourceTree = "<group>"; };
+		8887FD591090FBE7009987E8 /* PGCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGCommand.m; path = Classes/PGCommand.m; sourceTree = "<group>"; };
+		8887FD5A1090FBE7009987E8 /* PGAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGAppDelegate.h; path = Classes/PGAppDelegate.h; sourceTree = "<group>"; };
+		8887FD5B1090FBE7009987E8 /* PGAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGAppDelegate.m; path = Classes/PGAppDelegate.m; sourceTree = "<group>"; };
+		8887FD5C1090FBE7009987E8 /* PGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PGViewController.h; path = Classes/PGViewController.h; sourceTree = "<group>"; };
+		8887FD5D1090FBE7009987E8 /* PGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PGViewController.m; path = Classes/PGViewController.m; sourceTree = "<group>"; };
 		8887FD5E1090FBE7009987E8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/Reachability.h; sourceTree = "<group>"; };
 		8887FD5F1090FBE7009987E8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/Reachability.m; sourceTree = "<group>"; };
 		8887FD601090FBE7009987E8 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sound.h; path = Classes/Sound.h; sourceTree = "<group>"; };
@@ -221,8 +221,8 @@
 				8887FD4D1090FBE7009987E8 /* Network.m */,
 				8887FD4E1090FBE7009987E8 /* Notification.h */,
 				8887FD4F1090FBE7009987E8 /* Notification.m */,
-				8887FD581090FBE7009987E8 /* PhoneGapCommand.h */,
-				8887FD591090FBE7009987E8 /* PhoneGapCommand.m */,
+				8887FD581090FBE7009987E8 /* PGCommand.h */,
+				8887FD591090FBE7009987E8 /* PGCommand.m */,
 				8887FD5E1090FBE7009987E8 /* Reachability.h */,
 				8887FD5F1090FBE7009987E8 /* Reachability.m */,
 				8887FD601090FBE7009987E8 /* Sound.h */,
@@ -260,10 +260,10 @@
 				8887FD361090FBE7009987E8 /* JSON */,
 				888700D910923009009987E8 /* Util */,
 				888700D810922FD3009987E8 /* Plugins */,
-				8887FD5A1090FBE7009987E8 /* PhoneGapDelegate.h */,
-				8887FD5B1090FBE7009987E8 /* PhoneGapDelegate.m */,
-				8887FD5C1090FBE7009987E8 /* PhoneGapViewController.h */,
-				8887FD5D1090FBE7009987E8 /* PhoneGapViewController.m */,
+				8887FD5A1090FBE7009987E8 /* PGAppDelegate.h */,
+				8887FD5B1090FBE7009987E8 /* PGAppDelegate.m */,
+				8887FD5C1090FBE7009987E8 /* PGViewController.h */,
+				8887FD5D1090FBE7009987E8 /* PGViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -320,9 +320,9 @@
 				8887FD911090FBE7009987E8 /* OCABMutableMultiValue.h in Headers */,
 				8887FD931090FBE7009987E8 /* OCABRecord.h in Headers */,
 				8887FD951090FBE7009987E8 /* OCCFObject.h in Headers */,
-				8887FD971090FBE7009987E8 /* PhoneGapCommand.h in Headers */,
-				8887FD991090FBE7009987E8 /* PhoneGapDelegate.h in Headers */,
-				8887FD9B1090FBE7009987E8 /* PhoneGapViewController.h in Headers */,
+				8887FD971090FBE7009987E8 /* PGCommand.h in Headers */,
+				8887FD991090FBE7009987E8 /* PGAppDelegate.h in Headers */,
+				8887FD9B1090FBE7009987E8 /* PGViewController.h in Headers */,
 				8887FD9D1090FBE7009987E8 /* Reachability.h in Headers */,
 				8887FD9F1090FBE7009987E8 /* Sound.h in Headers */,
 				88BA573D109BB46F00FB5E78 /* Accelerometer.h in Headers */,
@@ -423,9 +423,9 @@
 				8887FD921090FBE7009987E8 /* OCABMutableMultiValue.m in Sources */,
 				8887FD941090FBE7009987E8 /* OCABRecord.m in Sources */,
 				8887FD961090FBE7009987E8 /* OCCFObject.m in Sources */,
-				8887FD981090FBE7009987E8 /* PhoneGapCommand.m in Sources */,
-				8887FD9A1090FBE7009987E8 /* PhoneGapDelegate.m in Sources */,
-				8887FD9C1090FBE7009987E8 /* PhoneGapViewController.m in Sources */,
+				8887FD981090FBE7009987E8 /* PGCommand.m in Sources */,
+				8887FD9A1090FBE7009987E8 /* PGAppDelegate.m in Sources */,
+				8887FD9C1090FBE7009987E8 /* PGViewController.m in Sources */,
 				8887FD9E1090FBE7009987E8 /* Reachability.m in Sources */,
 				8887FDA01090FBE7009987E8 /* Sound.m in Sources */,
 				88BA573E109BB46F00FB5E78 /* Accelerometer.m in Sources */,
@@ -479,6 +479,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -498,6 +499,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",

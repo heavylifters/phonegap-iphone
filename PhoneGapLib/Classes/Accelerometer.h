@@ -3,14 +3,15 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
 */
 
 #import <UIKit/UIKit.h>
-#import "PhoneGapCommand.h"
+#import "PGCommand.h"
 
 
 
-@interface Accelerometer : PhoneGapCommand<UIAccelerometerDelegate> 
+@interface Accelerometer : PGCommand <UIAccelerometerDelegate> 
 {
 	bool _bIsRunning;
 	

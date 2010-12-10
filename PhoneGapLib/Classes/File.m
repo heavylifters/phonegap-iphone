@@ -3,6 +3,7 @@
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  * 
  * Copyright (c) 2005-2010, Nitobi Software Inc.
+ * Copyright (c) 2010-11, HeavyLifters Network Ltd.
  */
 
 
@@ -15,10 +16,10 @@
 
 
 
--(id)initWithWebView:(UIWebView *)theWebView
+- (id) initWithController:(PGViewController *)vc
 {
-	self = (File*)[super initWithWebView:theWebView];
-	if(self)
+	self = [super initWithController: vc];
+	if (self)
 	{
 		// get the documents directory path
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -38,7 +39,7 @@
 {
 	
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr._setPaths('%@','%@', '%@');",appDocsPath, appTempPath, appLibraryPath];
-	[webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+	[self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 // User agents should provide an API exposed to script that exposes the features above. The user is notified by UI anytime interaction with the file 
@@ -53,7 +54,7 @@
 	// send back a load start event
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.reader_onloadstart(\"%@\");",argPath];
 	
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 	
 	NSString *filePath = [ [ self appDocsPath ] stringByAppendingPathComponent:argPath];
 
@@ -66,11 +67,11 @@
 	NSString* pNStrBuff = [[NSString alloc] initWithBytes: [readData bytes] length: [readData length] encoding: NSUTF8StringEncoding];
 	
 	jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.reader_onloadend(\"%@\",\"%@\");",argPath, [ pNStrBuff stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString:jsCallBack];
 	
 	// write back the result
 	jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.reader_onload(\"%@\",\"%@\");",argPath, [ pNStrBuff stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString:jsCallBack];
 	
 	[ pNStrBuff release ];
 }
@@ -93,7 +94,7 @@
 	// how do we detect errors?
 	// jsCallBack = [ NSString stringWithFormat:@"navigator.fileMgr.writer_onerror(\"%@\",%d);",argPath,newPos ];
 
-	[webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+	[self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 - (unsigned long long) truncateFile:(NSString*)filePath atPosition:(unsigned long long)pos
@@ -146,7 +147,7 @@
 	{
 		jsCallBack = [ NSString stringWithFormat:@"navigator.fileMgr.writer_onerror(\"%@\",%d);",argPath,( pos + bytesWritten ) ];
 	}
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString:jsCallBack];
 }
 
 - (void) testFileExists:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
@@ -156,7 +157,7 @@
 	BOOL bExists = [ self fileExists:argPath];
 	
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.successCallback(%s);",( bExists ? "1" : "0" )];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 	
 }
 
@@ -170,7 +171,7 @@
 	Boolean bExists = [ self directoryExists:appFile ];
 	
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.successCallback(%s);",( bExists ? "1" : "0" )];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 	
 }
 
@@ -189,7 +190,7 @@
 	BOOL bSuccess = [ fMgr createDirectoryAtPath:appFile withIntermediateDirectories:YES attributes:nil error:&pError];
 	
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.successCallback(%s);",( bSuccess ? "1" : "0" )];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 - (void) deleteDirectory:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
@@ -207,7 +208,7 @@
 	BOOL bSuccess = [ fMgr removeItemAtPath:appFile error:&pError];
 	
 	NSString * jsCallBack = [NSString stringWithFormat:@"navigator.fileMgr.successCallback(%s);",( bSuccess ? "1" : "0" )];
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString:jsCallBack];
 
 }
 
@@ -233,7 +234,7 @@
 							 strFreeSpace, 
 							 strFreeSpace];
 
-    [webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+    [self stringByEvaluatingJavaScriptFromString: jsCallBack];
 }
 
 - (BOOL) fileExists:(NSString*)fileName
